@@ -1,0 +1,38 @@
+/* margin top */
+
+.ml-10 {
+    margin-left: 10px;
+}
+
+.mt-10 {
+    margin-top: 10px;
+}
+
+.mt50 {
+    margin-top: 50px;
+}
+
+.mt20 {
+    margin-top: 50px;
+}
+
+.mt10 {
+    margin-top: 20px;
+}
+
+.mt5 {
+    margin-top: 5px;
+}
+
+
+/* end margin top */
+
+.bold {
+    font-weight: bold;
+}
+
+@media (min-width: 768px) {
+    .ml-20 {
+        margin-left: 20px;
+    }
+}
