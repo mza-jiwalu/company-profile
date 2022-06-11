@@ -19,9 +19,10 @@ class LamaranController extends Controller
     {
         $lamarans = DB::table('pelamar')
             ->select('pelamar.*', 'lowongan_kerja.name as lowongan')
-            ->join('lowongan_kerja', 'pelamar.id_lowongan_kerja', '=', 'lowongan_kerja.id')
+            ->leftJoin('lowongan_kerja', 'pelamar.id_lowongan_kerja', '=', 'lowongan_kerja.id')
+            ->orderBy('pelamar.id', 'desc')
             ->get();
-        $lowongans = DB::table('lowongan_kerja')->get();
+        $lowongans = DB::table('lowongan_kerja')->orderBy('id', 'desc')->get();
         return view('hrd.lamaran.index', ['lamarans' => $lamarans, 'lowongans' => $lowongans]);
     }
 
@@ -55,8 +56,8 @@ class LamaranController extends Controller
     public function show($id)
     {
         $lamaran = DB::table('pelamar')
-            ->select('pelamar.*', 'lowongan_kerja.name as lowongan')
-            ->join('lowongan_kerja', 'pelamar.id_lowongan_kerja', '=', 'lowongan_kerja.id')
+            ->select('pelamar.*', 'lowongan_kerja.name as lowongan', 'lowongan_kerja.open as open', 'lowongan_kerja.close as close')
+            ->leftJoin('lowongan_kerja', 'pelamar.id_lowongan_kerja', '=', 'lowongan_kerja.id')
             ->where('pelamar.id', $id)->get();
         return view('hrd.lamaran.show', ['pelamar' => $lamaran[0]]);
     }

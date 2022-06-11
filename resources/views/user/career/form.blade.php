@@ -206,10 +206,15 @@
                     <img src="https://via.placeholder.com/150" id="preview" width="300" height="400">
                 </div>
                 <div class="row justify-content-center mt10">
-                    <div class="2">
-                        <input type="file" class="form-control" accept="image/*" onchange="previewImage(event)"
-                            name="foto" >
+                    <div class="d-flex justify-content-center">
+                        <input type="file" class="form-control" accept="image/*" onchange="previewImage(event)" name="foto" >
+                        <b class="text-danger ml-2">*</b>
                     </div>
+                </div>
+                <div class="row justify-content-center">
+                    @error('foto')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
                 </div>
             </div>
             <div class="page-content mt10">
@@ -240,8 +245,8 @@
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror
                                     </li>
-                                    <li><strong>Umur <i class="text-danger">*</i></strong><input type="text" name="umur" value="{{session('umur')}}"
-                                            placeholder="[18 tahun]" >
+                                    <li><strong>Umur <i class="text-danger">*</i></strong><input type="number" name="umur" value="{{session('umur')}}"
+                                            placeholder="[18]" >
                                             @error('umur')
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror
@@ -288,31 +293,44 @@
                                 <!-- <form action="#"> -->
                                 <!-- <div class="form-banner-button"> -->
                                 <ul>
+                                    <li><strong>Pendidikan terakhir <i class="text-danger">*</i></strong>
+                                        <select class="form-select" name="pendidikan_terakhir" id="pendidikanTerakhir">
+                                            <option value="smp" {{ session('pendidikan_terakhir') == 'smp' ? 'selected' : '' }}>SMP</option>
+                                            <option value="sma" {{ session('pendidikan_terakhir') == 'sma' ? 'selected' : '' }}>SMA</option>
+                                            <option value="d1" {{ session('pendidikan_terakhir') == 'd1' ? 'selected' : '' }}>D1</option>
+                                            <option value="d2" {{ session('pendidikan_terakhir') == 'd2' ? 'selected' : '' }}>D2</option>
+                                            <option value="d3" {{ session('pendidikan_terakhir') == 'd3' ? 'selected' : '' }}>D3</option>
+                                            <option value="s1" {{ session('pendidikan_terakhir') == 's1' ? 'selected' : '' }}>S1</option>
+                                        </select>
+                                        @error('pendidikan_terahir')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </li>
                                     <li><strong>Sudah pernah bekerja? <i class="text-danger">*</i></strong>
                                         <select class="form-select" name="sudah_bekerja" onchange="hideStatusKerja();" id="statusKerja" >
-                                            <option value="iya">Pernah</option>
-                                            <option value="belum">Belum</option>
+                                            <option value="iya" {{ session('sudah_bekerja') == 'iya' ? 'selected' : '' }}>Pernah</option>
+                                            <option value="belum" {{ session('sudah_bekerja') == 'belum' ? 'selected' : '' }}>Belum</option>
                                         </select>
                                         @error('sudah_bekerja')
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
                                     </li>
-                                    <li class="status"><strong>Terakhir bekerja di PT?</strong><input type="text"
+                                    <li class="status"><strong>Terakhir bekerja di PT? <i class="text-danger">*</i></strong><input type="text"
                                             placeholder="[PT.Teknologi]" value="{{session('terakhir_bekerja')}}"
                                             name="terakhir_bekerja"></li>
-                                    <li class="status"><strong>Berapa tahun anda bekerja?</strong><input type="text"
-                                            placeholder="[3 tahun]" name="lama_bekerja"
+                                    <li class="status"><strong>Berapa tahun anda bekerja? <i class="text-danger">*</i></strong><input type="text"
+                                            placeholder="[3]" name="lama_bekerja"
                                             value="{{session('lama_bekerja')}}"></li>
-                                    <li class="status"><strong>Jabatan terakhir?</strong><input type="text"
+                                    <li class="status"><strong>Jabatan terakhir? <i class="text-danger">*</i></strong><input type="text"
                                             placeholder="[Staff acounting]" name="jabatan_terakhir"
                                             value="{{session('jabatan_terakhir')}}"></li> </br>
                                     <li>
-                                    <li class="status"><strong>Gaji terakhir?</strong><input type="text" placeholder="[55000000]"
+                                    <li class="status"><strong>Gaji terakhir? <i class="text-danger">*</i></strong><input type="text" placeholder="[55000000]"
                                             name="gaji_terakhir" value="{{session('gaji_terakhir')}}"></li> </br>
                                     <li>
                                         <form id="form1" name="form1" method="post" action="">
                                         <strong>Upload CV Anda <i class="text-danger">*</i></strong>
-                                        <input class="form-control" type="file" name="cv" >
+                                        <input class="form-control" type="file" name="cv" accept="application/pdf">
                                         @error('cv')
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
@@ -335,7 +353,7 @@
                                                             <div class="form-group row align-items-center">
                                                                 <label for="pilihan-1" class="col-sm-4 col-form-label">Oliver</label>
                                                                 <div class="col-sm-2">
-                                                                    <input type="radio" name="nilai_soal" id="pilihan-1" value="a">
+                                                                    <input type="radio" name="nilai_soal" id="pilihan-1" value="a" {{ session('nilai_soal') === 'a' ? 'checked' : '' }}>
                                                                 </div>
                                                             </div>
                                                         </li>
@@ -343,7 +361,7 @@
                                                             <div class="form-group row align-items-center">
                                                                 <label for="pilihan-2" class="col-sm-4 col-form-label">Rachel</label>
                                                                 <div class="col-sm-2">
-                                                                    <input type="radio" name="nilai_soal" id="pilihan-2" value="b">
+                                                                    <input type="radio" name="nilai_soal" id="pilihan-2" value="b" {{ session('nilai_soal') === 'b' ? 'checked' : '' }}>
                                                                 </div>
                                                             </div>
                                                         </li>
@@ -351,7 +369,7 @@
                                                             <div class="form-group row align-items-center">
                                                                 <label for="pilihan-3" class="col-sm-4 col-form-label">Sarah</label>
                                                                 <div class="col-sm-2">
-                                                                    <input type="radio" name="nilai_soal" id="pilihan-3" value="c">
+                                                                    <input type="radio" name="nilai_soal" id="pilihan-3" value="c" {{ session('nilai_soal') === 'c' ? 'checked' : '' }}>
                                                                 </div>
                                                             </div>
                                                         </li>
@@ -359,7 +377,7 @@
                                                             <div class="form-group row align-items-center">
                                                                 <label for="pilihan-4" class="col-sm-4 col-form-label">Tod</label>
                                                                 <div class="col-sm-2">
-                                                                    <input type="radio" name="nilai_soal" id="pilihan-4" value="d">
+                                                                    <input type="radio" name="nilai_soal" id="pilihan-4" value="d" {{ session('nilai_soal') === 'd' ? 'checked' : '' }}>
                                                                 </div>
                                                             </div>
                                                         </li>

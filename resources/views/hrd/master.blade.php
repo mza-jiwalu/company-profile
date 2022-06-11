@@ -82,6 +82,22 @@
                         data-accordion="false">
                         @if(session('role') == 'hrd' || session('role') == 'direktur')
                         <li class="nav-item">
+                            <a href="{{url('hrd')}}" class="nav-link">
+                                <i class="nav-icon fas fa-chart-line"></i>
+                                <p>
+                                    Dashboard
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{url('hrd/profil')}}" class="nav-link">
+                                <i class="nav-icon fas fa-user"></i>
+                                <p>
+                                    Profile
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-sun"></i>
                                 <span class="dropdown-toggle" data-bs-toggle="collapse" href="#master"
