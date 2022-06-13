@@ -353,7 +353,7 @@
                                             <input type="text" class="form-control" placeholder="PT. Teknologi Maju" value="{{session('terakhir_bekerja')}}" name="terakhir_bekerja">
                                         </div>
                                     </li>
-                                    <li>
+                                    <li class="status">
                                         <div class="form-group mb-2">
                                             <strong>Berapa tahun anda bekerja? <i class="text-danger">*</i></strong>
                                             <div class="input-group" style="flex-wrap: nowrap;">
@@ -371,7 +371,7 @@
                                             <input type="text" class="form-control" placeholder="Staff acounting" name="jabatan_terakhir" value="{{session('jabatan_terakhir')}}">
                                         </div>
                                     </li>
-                                    <li>
+                                    <li class="status">
                                         <div class="form-group mb-2">
                                             <strong>Gaji terakhir? <i class="text-danger">*</i></strong>
                                             <div class="input-group" style="flex-wrap: nowrap;">
