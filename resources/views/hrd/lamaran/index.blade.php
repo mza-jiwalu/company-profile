@@ -51,15 +51,18 @@
                             <table id="tbl" class="table table-bordered table-striped">
                                 <div class="row">
                                     <div class="col-3">
-                                        <div class="form-group m-0">
-                                            <label for="filter-status" class="m-0">Status</label>
-                                            <select id="filter-status" class="form-control form-control-sm" name="status">
-                                                <option value="">Semua</option>
-                                                <option value="verifikasi">Belum Diverifikasi</option>
-                                                <option value="diterima">Tahap Selanjutnya</option>
-                                                <option value="ditolak">Ditolak</option>
-                                            </select>
-                                        </div>
+                                        <form action="{{ url('hrd/lamaran') }}" method="post" id="form-status">
+                                            @csrf
+                                            <div class="form-group m-0">
+                                                <label for="filter-status" class="m-0">Status</label>
+                                                <select id="filter-status" class="form-control form-control-sm" name="status">
+                                                    <option value="">Semua</option>
+                                                    <option value="verifikasi" {{ $status === 'verifikasi' ? 'selected' : '' }}>Belum Diverifikasi</option>
+                                                    <option value="diterima" {{ $status === 'diterima' ? 'selected' : '' }}>Tahap Selanjutnya</option>
+                                                    <option value="ditolak" {{ $status === 'ditolak' ? 'selected' : '' }}>Ditolak</option>
+                                                </select>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                                 <br>
@@ -143,8 +146,11 @@
             orderCellsTop: true,
             fixedHeader: true
         } );
-        });
 
+        $('#filter-status').change(function(){
+            $('#form-status').submit();
+        })
+    });
 </script>
 <script>
     $("#exportExcel").on('click', function () {

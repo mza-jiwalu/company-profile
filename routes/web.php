@@ -53,6 +53,7 @@ Route::prefix('hrd')->middleware(['middleware' => 'login.hrd'])->group(function 
     Route::resource('skill', 'HRD\SkillController');
     Route::resource('soal', 'HRD\SoalController');
     Route::resource('lamaran', 'HRD\LamaranController');
+    Route::post('lamaran', 'HRD\LamaranController@index');
     Route::get('lamaran/export/excel/{id}', 'HRD\LamaranController@export');
     Route::get('lamaran/status/{id}', 'HRD\LamaranController@putStatus');
     Route::get('profil', 'HRD\ProfileController@index');

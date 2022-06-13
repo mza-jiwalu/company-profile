@@ -15,15 +15,30 @@ class LamaranController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $lamarans = DB::table('pelamar')
-            ->select('pelamar.*', 'lowongan_kerja.name as lowongan')
-            ->leftJoin('lowongan_kerja', 'pelamar.id_lowongan_kerja', '=', 'lowongan_kerja.id')
-            ->orderBy('pelamar.id', 'desc')
-            ->get();
+        $data = $request->all();
+        $status = $data['status'] ?? '';
+        if (isset($data['status'])) {
+            $lamarans = DB::table('pelamar')
+                ->select('pelamar.*', 'lowongan_kerja.name as lowongan')
+                ->leftJoin('lowongan_kerja', 'pelamar.id_lowongan_kerja', '=', 'lowongan_kerja.id')
+                ->where('pelamar.status', '=', $data['status'])
+                ->orderBy('pelamar.id', 'desc')
+                ->get();
+        } else {
+            $lamarans = DB::table('pelamar')
+                ->select('pelamar.*', 'lowongan_kerja.name as lowongan')
+                ->leftJoin('lowongan_kerja', 'pelamar.id_lowongan_kerja', '=', 'lowongan_kerja.id')
+                ->orderBy('pelamar.id', 'desc')
+                ->get();
+        }
         $lowongans = DB::table('lowongan_kerja')->orderBy('id', 'desc')->get();
-        return view('hrd.lamaran.index', ['lamarans' => $lamarans, 'lowongans' => $lowongans]);
+        return view('hrd.lamaran.index', [
+            'lamarans' => $lamarans,
+            'lowongans' => $lowongans,
+            'status' => $status
+        ]);
     }
 
     /**
