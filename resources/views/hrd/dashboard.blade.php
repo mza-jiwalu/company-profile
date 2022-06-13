@@ -18,7 +18,7 @@
     </div>
 
     <div class="content">
-        <div class="container-fluid">
+        <div class="container-fluid pb-5">
             <div class="row">
                 <div class="col-lg-3 col-6">
                     <div class="small-box bg-info">
@@ -82,11 +82,14 @@
                 </div> -->
             </div>
             <div class="row">
-                <div class="col-lg-6 col-12">
+                <div class="col-lg-4 col-12">
                     <canvas id="chart-pelamar-umur"></canvas>
                 </div>
-                <div class="col-lg-6 col-12">
+                <div class="col-lg-4 col-12">
                     <canvas id="chart-pelamar-pendidikan"></canvas>
+                </div>
+                <div class="col-lg-4 col-12">
+                    <canvas id="chart-pelamar-pengalaman"></canvas>
                 </div>
             </div>
         </div>
@@ -130,6 +133,46 @@
     const chartUmur = new Chart(
         document.getElementById('chart-pelamar-umur'),
         configUmur
+    );
+    
+    // Chart pelamar (pengalaman)
+    const dataPengalaman = {
+        labels: [
+            '0 Tahun',
+            '1 Tahun',
+            '2 Tahun',
+            '3 Tahun',
+            '3+ Tahun',
+        ],
+        datasets: [{
+            label: 'Pelamar Berdasarkan Pengalaman',
+            data: {{ json_encode($totalPelamarPengalaman) }},
+            backgroundColor: [
+            'rgb(255, 99, 132)',
+            'rgb(54, 162, 235)',
+            'rgb(255, 205, 86)',
+            'rgb(52, 235, 103)',
+            'rgb(193, 56, 235)',
+            ],
+            hoverOffset: 4
+        }]
+    };
+    const optionsPengalaman = {
+        plugins: {
+            title: {
+                display: true,
+                text: 'Pelamar Berdasarkan Pengalaman'
+            }
+        }
+    }
+    const configPengalaman = {
+        type: 'doughnut',
+        data: dataPengalaman,
+        options: optionsPengalaman
+    }
+    const chartPengalaman = new Chart(
+        document.getElementById('chart-pelamar-pengalaman'),
+        configPengalaman
     );
     
     // Chart pelamar (pendidikan)

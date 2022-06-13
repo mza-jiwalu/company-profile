@@ -12,6 +12,7 @@ class PageController extends Controller
     {
         $totalVisitor = 0;
         $totalPelamarUmur = [0, 0, 0, 0];
+        $totalPelamarPengalaman = [0, 0, 0, 0, 0];
         $totalPelamarPendidikan = [0, 0, 0, 0, 0, 0];
         $totalLowongan = DB::table('lowongan_kerja')->count('id');
         $totalPelamar = DB::table('pelamar')->count('id');
@@ -22,6 +23,20 @@ class PageController extends Controller
         }
         if ($pelamar = DB::table('pelamar')->get()) {
             foreach ($pelamar as $row) {
+                if ($row->sudah_bekerja === 'belum') {
+                    $totalPelamarPengalaman[0] += 1;
+                } elseif ($row->sudah_bekerja === 'iya') {
+                    if (floatval($row->lama_bekerja) > 0 && floatval($row->lama_bekerja) <= 1) {
+                        $totalPelamarPengalaman[1] += 1;
+                    } elseif (floatval($row->lama_bekerja) > 1 && floatval($row->lama_bekerja) <= 2) {
+                        $totalPelamarPengalaman[2] += 1;
+                    } elseif (floatval($row->lama_bekerja) > 2 && floatval($row->lama_bekerja) <= 3) {
+                        $totalPelamarPengalaman[3] += 1;
+                    } elseif (floatval($row->lama_bekerja) > 3) {
+                        $totalPelamarPengalaman[4] += 1;
+                    }
+                }
+
                 if (intval($row->umur) >= 18 && intval($row->umur) <= 25) {
                     $totalPelamarUmur[0] += 1;
                 } elseif (intval($row->umur) >= 26 && intval($row->umur) <= 30) {
@@ -55,7 +70,14 @@ class PageController extends Controller
             }
         }
 
-        return view('hrd.dashboard', compact('totalLowongan', 'totalPelamar', 'totalVisitor', 'totalPelamarUmur', 'totalPelamarPendidikan'));
+        return view('hrd.dashboard', compact(
+            'totalLowongan',
+            'totalPelamar',
+            'totalVisitor',
+            'totalPelamarUmur',
+            'totalPelamarPengalaman',
+            'totalPelamarPendidikan',
+        ));
     }
 
     public function profil()
