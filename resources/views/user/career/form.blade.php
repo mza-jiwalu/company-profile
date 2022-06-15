@@ -257,7 +257,7 @@
                                         <div class="form-group mb-2">
                                             <strong>Umur <i class="text-danger">*</i></strong>
                                             <div class="input-group" style="flex-wrap: nowrap;">
-                                                <input type="number" class="form-control" name="umur" style="border: 1px solid black;" placeholder="18" aria-label="Umur" aria-describedby="umur">
+                                                <input type="number" class="form-control" name="umur" style="border: 1px solid black;" placeholder="18" value="{{ session('umur') }}" aria-label="Umur" aria-describedby="umur">
                                                 <span class="input-group-text" id="umur" style="border: 1px solid black; border-left: none; border-radius: 0;">Tahun</span>
                                             </div>
                                             @error('umur')
@@ -357,7 +357,7 @@
                                         <div class="form-group mb-2">
                                             <strong>Berapa tahun anda bekerja? <i class="text-danger">*</i></strong>
                                             <div class="input-group" style="flex-wrap: nowrap;">
-                                                <input type="number" class="form-control" name="lama_bekerja" style="border: 1px solid black;" placeholder="1.5" aria-label="Umur" aria-describedby="lama_bekerja">
+                                                <input type="number" class="form-control" name="lama_bekerja" style="border: 1px solid black;" value="{{ session('lama_bekerja') }}" placeholder="3" aria-label="Umur" aria-describedby="lama_bekerja">
                                                 <span class="input-group-text" id="lama_bekerja" style="border: 1px solid black; border-left: none; border-radius: 0;">Tahun</span>
                                             </div>
                                             @error('lama_bekerja')
@@ -376,7 +376,7 @@
                                             <strong>Gaji terakhir? <i class="text-danger">*</i></strong>
                                             <div class="input-group" style="flex-wrap: nowrap;">
                                                 <span class="input-group-text" id="gaji_terakhir" style="border: 1px solid black; border-right: none; border-radius: 0;">Rp</span>
-                                                <input type="number" class="form-control" name="gaji_terakhir" style="border: 1px solid black;" placeholder="5000000" aria-label="Umur" aria-describedby="gaji_terakhir">
+                                                <input type="number" class="form-control" name="gaji_terakhir" style="border: 1px solid black;" value="{{ session('gaji_terakhir') }}" placeholder="5000000" aria-label="Umur" aria-describedby="gaji_terakhir">
                                             </div>
                                             @error('gaji_terakhir')
                                                 <small class="text-danger">{{ $message }}</small>
@@ -396,6 +396,9 @@
                                     </li> 
                                     <br>
                                     <p class="m-0 pl-4 pb-2"><b>Soal</b><b class="text-danger"> *</b></p>
+                                    @error('nilai_soal')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
                                     <ol start="1" type="1">
                                         <li>Four Kids,Oliver,Rachel,Sarah,and Todd,were playing upstairs when
                                             you heard a loud crash.you ran to the room and found
