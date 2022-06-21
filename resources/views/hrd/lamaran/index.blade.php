@@ -47,7 +47,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body table-responsive">
                             <table id="tbl" class="table table-bordered table-striped">
                                 <div class="row">
                                     <div class="col-3">
@@ -73,6 +73,7 @@
                                         <th>Umur</th>
                                         <th>Jenis Kelamin</th>
                                         <th>Lowongan Kerja</th>
+                                        <th>Tanggal Melamar</th>
                                         <th>Status</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -89,6 +90,7 @@
                                         <td>{{$lamaran->umur}}</td>
                                         <td>{{$lamaran->jenis_kelamin}}</td>
                                         <td>{{$lamaran->lowongan}}</td>
+                                        <td data-order="{{ $lamaran->created_at }}">{{date('d M, y', strtotime($lamaran->created_at))}}</td>
                                         <td style="min-width: 150px;">
                                             <select class="form-control form-control-sm select-status" name="status" data-lamaran="{{ $lamaran->id }}">
                                                 <option value=""></option>
@@ -143,7 +145,7 @@
 <script>
     $(document).ready(function () {
         var table = $('#tbl').DataTable( {
-            orderCellsTop: true,
+            order: [[5, 'desc']],
             fixedHeader: true
         } );
 

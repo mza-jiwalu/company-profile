@@ -134,10 +134,9 @@ class CareerController extends Controller
             DB::table('pelamar')->insert(
                 array_merge($data, [
                     'foto' => $lokasiFoto . '/' . $namaFoto,
-
                     'cv' => $lokasiCV . '/' . $namaCv,
-
-                    'id_lowongan_kerja' => $id
+                    'id_lowongan_kerja' => $id,
+                    'status' => 'verifikasi'
                 ])
             );
             // $request->session()->put('nik', $data['nik']);
