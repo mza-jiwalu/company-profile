@@ -97,7 +97,7 @@
                         <div class="inner">
                             <h3>{{$data['visitor']}}</h3>
 
-                            <p>Total Viewers</p>
+                            <p>Total Pengunjung</p>
                         </div>
                         <div class="icon">
                         <i class="far fa-eye"></i>

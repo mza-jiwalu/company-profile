@@ -19,7 +19,7 @@ class PageController extends Controller
         $totalPenghargaan = DB::table('penghargaan')->count('id');
         $totalTruk = DB::table('jumlah_truk')->orderBy('tahun', 'asc')->get();
         $total = count($totalTruk);
-        $totalTruk = $totalTruk[$total-1]->total_truk;
+        $totalTruk = $totalTruk[$total - 1]->total_truk;
         $totalPelanggan = DB::table('pelanggan_kami')->count('id');
 
         //data hrd
@@ -41,7 +41,7 @@ class PageController extends Controller
 
     public function login()
     {
-        if(session('login')) {
+        if (session('login')) {
             return redirect('admin');
         }
         return view('admin.login');

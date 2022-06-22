@@ -49,7 +49,7 @@
                         <div class="inner">
                             <h3>{{$totalVisitor}}</h3>
 
-                            <p>Jumlah Viewers Career</p>
+                            <p>Total Pengunjung Lowongan</p>
                         </div>
                         <div class="icon">
                         <i class="far fa-eye"></i>

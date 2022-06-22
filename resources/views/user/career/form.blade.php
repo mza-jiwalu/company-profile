@@ -134,67 +134,8 @@
         }
     </style>
     <style>
-        .form-select {
-            display: block;
-            width: 100%;
-            padding: .375rem 2.25rem .375rem .75rem;
-            -moz-padding-start: calc(0.75rem - 3px);
-            font-size: 1rem;
-            font-weight: 400;
-            line-height: 1.5;
-            color: #212529;
-            background-color: #fff;
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
-            background-repeat: no-repeat;
-            background-position: right .75rem center;
-            background-size: 16px 12px;
-            border: 1px solid #ced4da;
-            border-radius: .25rem;
-            transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none
-        }
-
-        @media (prefers-reduced-motion:reduce) {
-            .form-select {
-                transition: none
-            }
-        }
-
-        .form-select:focus {
-            border-color: #86b7fe;
-            outline: 0;
-            box-shadow: 0 0 0 .25rem rgba(13, 110, 253, .25)
-        }
-
-        .form-select[multiple],
-        .form-select[size]:not([size="1"]) {
-            padding-right: .75rem;
-            background-image: none
-        }
-
-        .form-select:disabled {
-            background-color: #e9ecef
-        }
-
-        .form-select:-moz-focusring {
-            color: transparent;
-            text-shadow: 0 0 0 #212529
-        }
-
-        .form-select-sm {
-            padding-top: .25rem;
-            padding-bottom: .25rem;
-            padding-left: .5rem;
-            font-size: .875rem
-        }
-
-        .form-select-lg {
-            padding-top: .5rem;
-            padding-bottom: .5rem;
-            padding-left: 1rem;
-            font-size: 1.25rem
+        ::placeholder {
+            opacity: 0.4 !important;
         }
     </style>
 
@@ -229,7 +170,7 @@
                                     <li>
                                         <div class="form-group mb-2">
                                             <strong>Nama lengkap <i class="text-danger">*</i></strong>
-                                            <input type="text" class="form-control" name="nama_lengkap" placeholder="Khansa Lungit" value="{{session('nama_lengkap')}}">
+                                            <input type="text" class="form-control" name="nama_lengkap" placeholder="Masukkan nama lengkap anda" value="{{session('nama_lengkap')}}">
                                             @error('nama_lengkap')
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror
@@ -247,7 +188,7 @@
                                     <li>
                                         <div class="form-group mb-2">
                                             <strong>NIK <i class="text-danger">*</i></strong>
-                                            <input type="text" class="form-control" name="nik" value="{{session('nik')}}" placeholder="3201234567891011" >
+                                            <input type="text" class="form-control" name="nik" value="{{session('nik')}}" placeholder="Masukkan NIK KTP anda" >
                                             @error('nik')
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror
@@ -257,7 +198,7 @@
                                         <div class="form-group mb-2">
                                             <strong>Umur <i class="text-danger">*</i></strong>
                                             <div class="input-group" style="flex-wrap: nowrap;">
-                                                <input type="number" class="form-control" name="umur" style="border: 1px solid black;" placeholder="18" value="{{ session('umur') }}" aria-label="Umur" aria-describedby="umur">
+                                                <input type="number" class="form-control" name="umur" style="border: 1px solid black;" placeholder="Masukkan umur anda" value="{{ session('umur') }}" aria-label="Umur" aria-describedby="umur">
                                                 <span class="input-group-text" id="umur" style="border: 1px solid black; border-left: none; border-radius: 0;">Tahun</span>
                                             </div>
                                             @error('umur')
@@ -280,7 +221,7 @@
                                     <li>
                                         <div class="form-group mb-2">
                                             <strong>No Telpon <i class="text-danger">*</i></strong>
-                                            <input type="text" class="form-control" name="no_tlp" placeholder="08123456789" value="{{session('no_tlp')}}">
+                                            <input type="text" class="form-control" name="no_tlp" placeholder="Masukkan nomor telepon anda" value="{{session('no_tlp')}}">
                                             @error('no_tlp')
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror
@@ -289,7 +230,7 @@
                                     <li>
                                         <div class="form-group mb-2">
                                             <strong>E-mail <i class="text-danger">*</i></strong>
-                                            <input type="text" class="form-control" name="email" placeholder="khansalungit@gmail.com" value="{{session('email')}}">
+                                            <input type="text" class="form-control" name="email" placeholder="Masukkan alamat email anda" value="{{session('email')}}">
                                             @error('email')
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror
@@ -298,7 +239,7 @@
                                     <li>
                                         <div class="form-group mb-2">
                                             <strong>Link Sosial media <i class="text-danger">*</i></strong>
-                                            <input type="text" class="form-control" placeholder="khansa.biolinky.com" name="link_sosmed" value="{{session('link_sosmed')}}">
+                                            <input type="text" class="form-control" placeholder="Masukkan link sosial media anda" name="link_sosmed" value="{{session('link_sosmed')}}">
                                             @error('link_sosmed')
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror
@@ -350,14 +291,14 @@
                                     <li class="status">
                                         <div class="form-group mb-2">
                                             <strong>Terakhir bekerja di PT? <i class="text-danger">*</i></strong>
-                                            <input type="text" class="form-control" placeholder="PT. Teknologi Maju" value="{{session('terakhir_bekerja')}}" name="terakhir_bekerja">
+                                            <input type="text" class="form-control" placeholder="Nama perusahaan terakhir anda bekerja" value="{{session('terakhir_bekerja')}}" name="terakhir_bekerja">
                                         </div>
                                     </li>
                                     <li class="status">
                                         <div class="form-group mb-2">
                                             <strong>Berapa tahun anda bekerja? <i class="text-danger">*</i></strong>
                                             <div class="input-group" style="flex-wrap: nowrap;">
-                                                <input type="number" class="form-control" name="lama_bekerja" style="border: 1px solid black;" value="{{ session('lama_bekerja') }}" placeholder="3" aria-label="Umur" aria-describedby="lama_bekerja">
+                                                <input type="number" class="form-control" name="lama_bekerja" style="border: 1px solid black;" value="{{ session('lama_bekerja') }}" placeholder="Masa jabatan diperusahaan terakhir anda bekerja" aria-label="Umur" aria-describedby="lama_bekerja">
                                                 <span class="input-group-text" id="lama_bekerja" style="border: 1px solid black; border-left: none; border-radius: 0;">Tahun</span>
                                             </div>
                                             @error('lama_bekerja')
@@ -368,7 +309,7 @@
                                     <li class="status">
                                         <div class="form-group mb-2">
                                             <strong>Jabatan terakhir? <i class="text-danger">*</i></strong>
-                                            <input type="text" class="form-control" placeholder="Staff acounting" name="jabatan_terakhir" value="{{session('jabatan_terakhir')}}">
+                                            <input type="text" class="form-control" placeholder="Jabatan diperusahaan terakhir anda bekerja" name="jabatan_terakhir" value="{{session('jabatan_terakhir')}}">
                                         </div>
                                     </li>
                                     <li class="status">
@@ -376,7 +317,7 @@
                                             <strong>Gaji terakhir? <i class="text-danger">*</i></strong>
                                             <div class="input-group" style="flex-wrap: nowrap;">
                                                 <span class="input-group-text" id="gaji_terakhir" style="border: 1px solid black; border-right: none; border-radius: 0;">Rp</span>
-                                                <input type="number" class="form-control" name="gaji_terakhir" style="border: 1px solid black;" value="{{ session('gaji_terakhir') }}" placeholder="5000000" aria-label="Umur" aria-describedby="gaji_terakhir">
+                                                <input type="number" class="form-control" name="gaji_terakhir" style="border: 1px solid black;" value="{{ session('gaji_terakhir') }}" placeholder="Gaji diperusahaan terakhir anda bekerja" aria-label="Umur" aria-describedby="gaji_terakhir">
                                             </div>
                                             @error('gaji_terakhir')
                                                 <small class="text-danger">{{ $message }}</small>
@@ -388,6 +329,7 @@
                                             <form id="form1" name="form1" method="post" action="">
                                                 <strong>Upload CV Anda <i class="text-danger">*</i></strong>
                                                 <input class="form-control" type="file" name="cv" accept="application/pdf">
+                                                <small>Format file dalam bentuk PDF</small>
                                                 @error('cv')
                                                     <small class="text-danger">{{ $message }}</small>
                                                 @enderror

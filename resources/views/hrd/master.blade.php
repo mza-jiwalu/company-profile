@@ -80,252 +80,200 @@
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
+                        @if(session('role') == 'admin' || session('role') == 'direktur')
+                            <li class="nav-item">
+                                <a href="javascript:void(0)" class="nav-link">
+                                    <p>
+                                        Menu Admin
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{url('admin')}}" class="nav-link">
+                                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                                    <p>
+                                        Dashboard
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{url('admin/profil')}}" class="nav-link">
+                                    <i class="nav-icon fas fa-copy"></i>
+                                    <p>
+                                        Profile
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="javascript:void(0)" class="nav-link">
+                                    <i class="nav-icon fas fa-home"></i>
+                                    <span class="dropdown-toggle" data-bs-toggle="collapse" href="#beranda"
+                                        aria-expanded="false" aria-controls="collapseExample">
+                                        Beranda
+                                    </span>
+                                </a>
+                                <ul class="collapse list-group" style="margin-left: 20px;" id="beranda">
+                                    <a href="{{route('slider.index')}}" class="list-group-item list-group-item-action">Slider</a>
+                                    <a href="{{route('pelanggan.index')}}" class="list-group-item list-group-item-action">Pelanggan Kami</a>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a href="javascript:void(0)" class="nav-link">
+                                    <i class="nav-icon fas fa-clipboard"></i>
+                                    <span class="dropdown-toggle" data-bs-toggle="collapse" href="#about"
+                                        aria-expanded="false" aria-controls="collapseExample">
+                                        About
+                                    </span>
+                                </a>
+                                <ul class="collapse list-group" style="margin-left: 20px;" id="about">
+                                    <a href="{{route('jumlah-truck.index')}}" class="list-group-item list-group-item-action">Jumlah Truk</a>
+                                    <a href="{{route('jenis-truck.index')}}" class="list-group-item list-group-item-action">Jenis Truk</a>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('penghargaan.index')}}" class="nav-link">
+                                    <i class="nav-icon fas fa-gift"></i>
+                                    <p>
+                                        Penghargaan
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="javascript:void(0)" class="nav-link">
+                                    <i class="nav-icon fas fa-drafting-compass"></i>
+                                    <span class="dropdown-toggle" data-bs-toggle="collapse" href="#service"
+                                        aria-expanded="false" aria-controls="collapseExample">
+                                        Service
+                                    </span>
+                                </a>
+                                <ul class="collapse list-group" style="margin-left: 20px;" id="service">
+                                    <a href="{{route('ritase.index')}}" class="list-group-item list-group-item-action">Ritase</a>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('berita.index')}}" class="nav-link">
+                                    <i class="nav-icon fas fa-newspaper"></i>
+                                    <p>
+                                        Berita
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('gallery.index')}}" class="nav-link">
+                                    <i class="nav-icon fas fa-image"></i>
+                                    <p>
+                                        Gallery
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{url('admin/pesan')}}" class="nav-link">
+                                    <i class="nav-icon fas fa-envelope"></i>
+                                    <p>
+                                        Pesan
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{url('admin/user')}}" class="nav-link">
+                                    <i class="nav-icon fas fa-cog"></i>
+                                    <p>
+                                        Pengaturan User
+                                    </p>
+                                </a>
+                            </li>
+                        @endif
                         @if(session('role') == 'hrd' || session('role') == 'direktur')
+                            <li class="nav-item">
+                                <a href="javascript:void(0)" class="nav-link">
+                                    <p>
+                                        Menu HRD
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{url('hrd')}}" class="nav-link">
+                                    <i class="nav-icon fas fa-chart-line"></i>
+                                    <p>
+                                        Dashboard
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{url('hrd/profil')}}" class="nav-link">
+                                    <i class="nav-icon fas fa-user"></i>
+                                    <p>
+                                        Profile
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="javascript:void(0)" class="nav-link">
+                                    <i class="nav-icon fas fa-sun"></i>
+                                    <span class="dropdown-toggle" data-bs-toggle="collapse" href="#master"
+                                        aria-expanded="false" aria-controls="collapseExample">
+                                        Master
+                                    </span>
+                                </a>
+                                <ul class="collapse list-group" style="margin-left: 20px;" id="master">
+                                    <a href="{{route('departemen.index')}}" class="list-group-item list-group-item-action">Departemen</a>
+                                    <a href="{{route('sub-departemen.index')}}" class="list-group-item list-group-item-action">Sub Departemen</a>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('lowongan.index')}}" class="nav-link">
+                                    <i class="nav-icon fas fa-copy"></i>
+                                    <p>
+                                        Lowongan
+                                    </p>
+                                </a>
+                            </li>
+                            <!-- <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-calendar"></i>
+                                    <span class="dropdown-toggle" data-bs-toggle="collapse" href="#hrd"
+                                        aria-expanded="false" aria-controls="collapseExample">
+                                        Rekrutmen
+                                    </span>
+                                </a>
+                                <ul class="collapse list-group" style="margin-left: 20px;" id="hrd">
+                                    <a href="{{route('lowongan.index')}}" class="list-group-item list-group-item-action">Lowongan Kerja</a>
+                                    <a href="{{route('skill.index')}}" class="list-group-item list-group-item-action">Skill</a>
+                                </ul>
+                            </li> -->
+                            <li class="nav-item">
+                                <a href="{{url('hrd/soal')}}" class="nav-link">
+                                    <i class="nav-icon fas fa-file-alt"></i>
+                                    <p>
+                                        Soal
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{url('hrd/lamaran')}}" class="nav-link">
+                                    <i class="nav-icon fas fa-file"></i>
+                                    <p>Lamaran</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="javascript:void(0)" class="nav-link">
+                                    <i class="nav-icon fas fa-file-alt"></i>
+                                    <span class="dropdown-toggle" data-bs-toggle="collapse" href="#laporan"
+                                        aria-expanded="false" aria-controls="collapseExample">
+                                        Laporan
+                                    </span>
+                                </a>
+                                <ul class="collapse list-group" style="margin-left: 20px;" id="laporan">
+                                    <a href="{{url('hrd/laporan/lamaran')}}" class="list-group-item list-group-item-action">Lamaran</a>
+                                </ul>
+                            </li>
+                        @endif
                         <li class="nav-item">
-                            <a href="{{url('hrd')}}" class="nav-link">
-                                <i class="nav-icon fas fa-chart-line"></i>
-                                <p>
-                                    Dashboard
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{url('hrd/profil')}}" class="nav-link">
-                                <i class="nav-icon fas fa-user"></i>
-                                <p>
-                                    Profile
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="javascript:void(0)" class="nav-link">
-                                <i class="nav-icon fas fa-sun"></i>
-                                <span class="dropdown-toggle" data-bs-toggle="collapse" href="#master"
-                                    aria-expanded="false" aria-controls="collapseExample">
-                                    Master
-                                </span>
-                            </a>
-                            <ul class="collapse list-group" style="margin-left: 20px;" id="master">
-                                <a href="{{route('departemen.index')}}" class="list-group-item list-group-item-action">Departemen</a>
-                                <a href="{{route('sub-departemen.index')}}" class="list-group-item list-group-item-action">Sub Departemen</a>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{route('lowongan.index')}}" class="nav-link">
-                                <i class="nav-icon fas fa-copy"></i>
-                                <p>
-                                    Lowongan
-                                </p>
-                            </a>
-                        </li>
-                        <!-- <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-calendar"></i>
-                                <span class="dropdown-toggle" data-bs-toggle="collapse" href="#hrd"
-                                    aria-expanded="false" aria-controls="collapseExample">
-                                    Rekrutmen
-                                </span>
-                            </a>
-                            <ul class="collapse list-group" style="margin-left: 20px;" id="hrd">
-                                <a href="{{route('lowongan.index')}}" class="list-group-item list-group-item-action">Lowongan Kerja</a>
-                                <a href="{{route('skill.index')}}" class="list-group-item list-group-item-action">Skill</a>
-                            </ul>
-                        </li> -->
-                        <li class="nav-item">
-                            <a href="{{url('hrd/soal')}}" class="nav-link">
-                                <i class="nav-icon fas fa-file-alt"></i>
-                                <p>
-                                    Soal
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{url('hrd/lamaran')}}" class="nav-link">
-                                <i class="nav-icon fas fa-file"></i>
-                                <p>Lamaran</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="javascript:void(0)" class="nav-link">
-                                <i class="nav-icon fas fa-file-alt"></i>
-                                <span class="dropdown-toggle" data-bs-toggle="collapse" href="#laporan"
-                                    aria-expanded="false" aria-controls="collapseExample">
-                                    Laporan
-                                </span>
-                            </a>
-                            <ul class="collapse list-group" style="margin-left: 20px;" id="laporan">
-                                <a href="{{url('hrd/laporan/lamaran')}}" class="list-group-item list-group-item-action">Lamaran</a>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{url('hrd/logout')}}" class="nav-link">
+                            <a href="{{url('logout')}}" class="nav-link">
                                 <i class="nav-icon fas fa-sign-out-alt"></i>
                                 <p>Sign Out</p>
                             </a>
                         </li>
-                        @elseif(session('role') == 'admin')
-                        <li class="nav-item">
-                            <a href="{{url('admin')}}" class="nav-link">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
-                                <p>
-                                    Dashboard
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{url('admin/profil')}}" class="nav-link">
-                                <i class="nav-icon fas fa-copy"></i>
-                                <p>
-                                    Profile
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="javascript:void(0)" class="nav-link">
-                                <i class="nav-icon fas fa-home"></i>
-                                <span class="dropdown-toggle" data-bs-toggle="collapse" href="#beranda"
-                                    aria-expanded="false" aria-controls="collapseExample">
-                                    Beranda
-                                </span>
-                            </a>
-                            <ul class="collapse list-group" style="margin-left: 20px;" id="beranda">
-                                <a href="{{route('slider.index')}}" class="list-group-item list-group-item-action">Slider</a>
-                                <a href="{{route('pelanggan.index')}}" class="list-group-item list-group-item-action">Pelanggan Kami</a>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="javascript:void(0)" class="nav-link">
-                                <i class="nav-icon fas fa-clipboard"></i>
-                                <span class="dropdown-toggle" data-bs-toggle="collapse" href="#about"
-                                    aria-expanded="false" aria-controls="collapseExample">
-                                    About
-                                </span>
-                            </a>
-                            <ul class="collapse list-group" style="margin-left: 20px;" id="about">
-                                <a href="{{route('jumlah-truck.index')}}" class="list-group-item list-group-item-action">Jumlah Truk</a>
-                                <a href="{{route('jenis-truck.index')}}" class="list-group-item list-group-item-action">Jenis Truk</a>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{route('penghargaan.index')}}" class="nav-link">
-                                <i class="nav-icon fas fa-gift"></i>
-                                <p>
-                                    Penghargaan
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="javascript:void(0)" class="nav-link">
-                                <i class="nav-icon fas fa-drafting-compass"></i>
-                                <span class="dropdown-toggle" data-bs-toggle="collapse" href="#service"
-                                    aria-expanded="false" aria-controls="collapseExample">
-                                    Service
-                                </span>
-                            </a>
-                            <ul class="collapse list-group" style="margin-left: 20px;" id="service">
-                                <a href="{{route('ritase.index')}}" class="list-group-item list-group-item-action">Ritase</a>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{route('berita.index')}}" class="nav-link">
-                                <i class="nav-icon fas fa-newspaper"></i>
-                                <p>
-                                    Berita
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{route('gallery.index')}}" class="nav-link">
-                                <i class="nav-icon fas fa-image"></i>
-                                <p>
-                                    Gallery
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{url('admin/pesan')}}" class="nav-link">
-                                <i class="nav-icon fas fa-envelope"></i>
-                                <p>
-                                    Pesan
-                                </p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="{{url('admin/user')}}" class="nav-link">
-                                <i class="nav-icon fas fa-cog"></i>
-                                <p>
-                                    Pengaturan User
-                                </p>
-                            </a>
-                        </li>
-                        
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <p>
-                                    Menu HRD
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="javascript:void(0)" class="nav-link">
-                                <i class="nav-icon fas fa-sun"></i>
-                                <span class="dropdown-toggle" data-bs-toggle="collapse" href="#master"
-                                    aria-expanded="false" aria-controls="collapseExample">
-                                    Master
-                                </span>
-                            </a>
-                            <ul class="collapse list-group" style="margin-left: 20px;" id="master">
-                                <a href="{{route('departemen.index')}}" class="list-group-item list-group-item-action">Departemen</a>
-                                <a href="{{route('sub-departemen.index')}}" class="list-group-item list-group-item-action">Sub Departemen</a>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{route('lowongan.index')}}" class="nav-link">
-                                <i class="nav-icon fas fa-copy"></i>
-                                <p>
-                                    Lowongan
-                                </p>
-                            </a>
-                        </li>
-                        <!-- <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-calendar"></i>
-                                <span class="dropdown-toggle" data-bs-toggle="collapse" href="#hrd"
-                                    aria-expanded="false" aria-controls="collapseExample">
-                                    Rekrutmen
-                                </span>
-                            </a>
-                            <ul class="collapse list-group" style="margin-left: 20px;" id="hrd">
-                                <a href="{{route('lowongan.index')}}" class="list-group-item list-group-item-action">Lowongan Kerja</a>
-                                <a href="{{route('skill.index')}}" class="list-group-item list-group-item-action">Skill</a>
-                            </ul>
-                        </li> -->
-                        <li class="nav-item">
-                            <a href="{{url('hrd/soal')}}" class="nav-link">
-                                <i class="nav-icon fas fa-file-alt"></i>
-                                <p>
-                                    Soal
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{url('hrd/lamaran')}}" class="nav-link">
-                                <i class="nav-icon fas fa-file"></i>
-                                <p>
-                                    Lamaran
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{url('hrd/logout')}}" class="nav-link">
-                                <i class="nav-icon fas fa-sign-out-alt"></i>
-                                <p>
-                                    Sign Out
-                                </p>
-                            </a>
-                        </li>
-                        @endif
                     </ul>
                 </nav>
             </div>

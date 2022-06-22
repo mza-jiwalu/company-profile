@@ -85,7 +85,11 @@
         }
 
         .button:hover {
-            background-color: #267d2b
+            background-color: #267d2b;
+        }
+        
+        button:disabled {
+            background-color: #707070 !important;
         }
 
         .button:active {
@@ -173,13 +177,11 @@
     <body>
         <div id="soal"></div>
         <center>
-            <a href="#" id="pref" class="btn btn-default">Pref</a>
-            <a href="#" id="next" class="btn btn-default">Next</a>
+            <button id="pref" class="btn btn-default" onclick="this.blur();">Pref</button>
+            <button id="next" class="btn btn-default" onclick="this.blur();">Next</button>
+            <button id="finish" class="btn btn-default" onclick="this.blur(); simpanJawaban();" disabled>Finish</button>
             <!-- </p> -->
             
-        </center>
-        <center>
-            <div id="finish" style="margin-top: 20px;"></div>
         </center>
     </body>
     <footer id="footer">
@@ -199,6 +201,7 @@
     <script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js"></script>
     <script src="{{ url('assets/user/soal/js/scripts.js') }}"></script>
     <script type="text/javascript">
+        var soal = [];
         $('#tags').tagsInput();
 
         // bkLib.onDomLoaded(function () {
@@ -221,10 +224,8 @@
         $url.= $_SERVER['REQUEST_URI'];?>
         function loadSoal() {
             $.get("{{ url('data-soal') }}/<?= basename($url) ?>", function (data) {
-                // console.log(data);
                 if(data.status == true) {
-                    var soal = data.data;
-                    // console.log(soal);
+                    soal = data.data;
                     var posisi = 0;
                     var jawabanHtml = "";
                     var pilihan = "";
@@ -234,8 +235,11 @@
                     for (let index = 0; index < soal[0].jawaban.length; index++) {
                         stateJawaban = (soal[posisi].id_jawaban==soal[posisi].jawaban[index].id) ? 'button-clicked' : '';
                         jawabanHtml += '<h3 style="color: #fff;">'+soal[0].jawaban[index].pilihan+'. '+soal[0].jawaban[index].jawaban+'</h3>';
-                        pilihan += '<button class="button mx-1 btn-jawaban btn'+soal[posisi].jawaban[index].id+' '+stateJawaban+'" onclick="jawab('+soal[posisi].jawaban[index].id+');" data-id="'+soal[posisi].id_soal+'-'+soal[posisi].id_pelamar+'">'+soal[posisi].jawaban[index].pilihan+'</button>';
+                        pilihan += '<button class="button mx-1 btn-jawaban btn'+soal[posisi].jawaban[index].id+' '+stateJawaban+'" onclick="jawab('+soal[posisi].jawaban[index].id+', '+posisi+');" data-id="'+soal[posisi].id_soal+'-'+soal[posisi].id_pelamar+'">'+soal[posisi].jawaban[index].pilihan+'</button>';
                     }
+                    $.each(soal, function(i, d){
+                        soal[i].dijawab = false;
+                    });
                     var soalHtml = '<center>'+
                     '<h1 style="color:#fff">Pertanyaan 1</h1>'+
                     '<h3 style="color: #fff;">'+pertanyaan+'</h3>'+
@@ -251,61 +255,66 @@
                     var pertanyaanHtml = "";
 
                     $("#next").click(function() {
-                        $("#pref").removeClass("d-none");
-                        if(posisiPertanyaan === soal.length) {
-                            $("#finish").html('<a href="#" onclick="simpanJawaban();" id="btnFinish" class="btn btn-default">Finish</a>');
-                            $("#next").addClass("d-none");
-                        }else{
-                            posisi++;
-                            posisiPertanyaan++;
-                            $.get("{{ url('data-soal') }}/<?= basename($url) ?>", function (data) {
-                                soal = data.data
-                            });
-                            console.log(posisi);
-                            pertannyaanHtml = soal[posisi].soal;
-                            jawabanHtml = "";
-                            pilihan = "";
-                            for (let index = 0; index < soal[posisi].jawaban.length; index++) {
-                                stateJawaban = (soal[posisi].id_jawaban==soal[posisi].jawaban[index].id) ? 'button-clicked' : '';
-                                jawabanHtml += '<h3 style="color: #fff;">'+soal[posisi].jawaban[index].pilihan+'. '+soal[posisi].jawaban[index].jawaban+'</h3>';
-                                pilihan += '<button class="button mx-1 btn-jawaban btn'+soal[posisi].jawaban[index].id+' '+stateJawaban+'" onclick="jawab('+soal[posisi].jawaban[index].id+');" data-id="'+soal[posisi].id_soal+'-'+soal[posisi].id_pelamar+'">'+soal[posisi].jawaban[index].pilihan+'</button>';
+                        if(soal[posisi].dijawab){
+                            $("#pref").prop("disabled", false);
+                            if(posisiPertanyaan === soal.length) {
+                                $("#finish").prop("disabled", false);
+                                $("#next").prop("disabled", true);
+                            }else{
+                                posisi++;
+                                posisiPertanyaan++;
+                                $.get("{{ url('data-soal') }}/<?= basename($url) ?>", function (data) {
+                                    soal = data.data
+                                });
+                                pertannyaanHtml = soal[posisi].soal;
+                                jawabanHtml = "";
+                                pilihan = "";
+                                for (let index = 0; index < soal[posisi].jawaban.length; index++) {
+                                    stateJawaban = (soal[posisi].id_jawaban==soal[posisi].jawaban[index].id) ? 'button-clicked' : '';
+                                    jawabanHtml += '<h3 style="color: #fff;">'+soal[posisi].jawaban[index].pilihan+'. '+soal[posisi].jawaban[index].jawaban+'</h3>';
+                                    pilihan += '<button class="button mx-1 btn-jawaban btn'+soal[posisi].jawaban[index].id+' '+stateJawaban+'" onclick="jawab('+soal[posisi].jawaban[index].id+', '+posisi+');" data-id="'+soal[posisi].id_soal+'-'+soal[posisi].id_pelamar+'">'+soal[posisi].jawaban[index].pilihan+'</button>';
+                                }
+                                soalHtml = '<center>'+
+                                '<h1 style="color:#fff">Pertanyaan '+posisiPertanyaan +'</h1>'+
+                                '<h3 style="color: #fff;">'+pertannyaanHtml+'</h3>'+
+                                '</center>'+
+                                '<div class="container">'+
+                                jawabanHtml+
+                                '</div>'+
+                                '<center>'+
+                                '<h5 style="color: #fff;">Pililah jawaban dibawah ini!!!</h2>'+
+                                '</center>'+
+                                '<center>'+pilihan+
+                                '</center><br>';
+                                $("#soal").html("");
+                                $("#soal").html(soalHtml);
                             }
-                            soalHtml = '<center>'+
-                            '<h1 style="color:#fff">Pertanyaan '+posisiPertanyaan +'</h1>'+
-                            '<h3 style="color: #fff;">'+pertannyaanHtml+'</h3>'+
-                            '</center>'+
-                            '<div class="container">'+
-                            jawabanHtml+
-                            '</div>'+
-                            '<center>'+
-                            '<h5 style="color: #fff;">Pililah jawaban dibawah ini!!!</h2>'+
-                            '</center>'+
-                            '<center>'+pilihan+
-                            '</center><br>';
-                            $("#soal").html("");
-                            $("#soal").html(soalHtml);
+                        }else{
+                            Swal.fire({
+                                type: 'error',
+                                title: 'Jawab soal terlebih dahulu',
+                                width: '400px'
+                            })
                         }
                     });
 
                     $("#pref").click(function() {
-                        $("#finish").html('');
-                        $("#next").removeClass("d-none");
+                        $("#next").prop("disabled", false);
                         if(posisi == 0) {
-                            $("#pref").addClass("d-none");
+                            $("#pref").prop("disabled", true);
                         } else {
                             posisi--;
                             posisiPertanyaan--;
                             $.get("{{ url('data-soal') }}/<?= basename($url) ?>", function (data) {
                                 soal = data.data
                             });
-                            // console.log(soal[posisi].jawaban.length);
                             pertannyaanHtml = soal[posisi].soal;
                             jawabanHtml = "";
                             pilihan = "";
                             for (let index = 0; index < soal[posisi].jawaban.length; index++) {
                                 stateJawaban = (soal[posisi].id_jawaban==soal[posisi].jawaban[index].id) ? 'button-clicked' : '';
                                 jawabanHtml += '<h3 style="color: #fff;">'+soal[posisi].jawaban[index].pilihan+'. '+soal[posisi].jawaban[index].jawaban+'</h3>';
-                                pilihan += '<button class="button mx-1 btn-jawaban btn'+soal[posisi].jawaban[index].id+' '+stateJawaban+'" onclick="jawab('+soal[posisi].jawaban[index].id+');" data-id="'+soal[posisi].id_soal+'-'+soal[posisi].id_pelamar+'">'+soal[posisi].jawaban[index].pilihan+'</button>';
+                                pilihan += '<button class="button mx-1 btn-jawaban btn'+soal[posisi].jawaban[index].id+' '+stateJawaban+'" onclick="jawab('+soal[posisi].jawaban[index].id+', '+posisi+');" data-id="'+soal[posisi].id_soal+'-'+soal[posisi].id_pelamar+'">'+soal[posisi].jawaban[index].pilihan+'</button>';
                             }
                             soalHtml = '<center>'+
                             '<h1 style="color:#fff">Pertanyaan '+ posisiPertanyaan +'</h1>'+
@@ -315,7 +324,7 @@
                             jawabanHtml+
                             '</div>'+
                             '<center>'+
-                            '<h5 style="color: #fff;">Pililah jawaban dibawah ini!!!</h2>'+
+                            '<h5 style="color: #fff;">Pilih lah jawaban dibawah ini!!!</h2>'+
                             '</center>'+
                             '<center>'+pilihan+
                             '</center><br>';
@@ -325,7 +334,6 @@
                     });
 
                     // $("#btnFinish").click(function() {
-                    //     console.log('finish');
                     //     $.get("{{url('simpan-jawaban')}}", function (data) {
                     //         if(data.status == true) {
                     //             alert('terimakasih');
@@ -342,15 +350,14 @@
 
         // $("#next").click(function() {
         //     $.get("data-soal", function (data) {
-        //         // console.log(data.data);
         //     });
         // });
-        function jawab(idJawaban) {
+        function jawab(idJawaban, posisi) {
             var dataID = $(".btn-jawaban").data("id");
             var data = dataID.split("-");
             $(".btn-jawaban").removeClass("button-clicked");
             $(".btn"+idJawaban).addClass("button-clicked");
-            console.log(data);
+            
             //urutan id soal, id jawaban, id pelamar
             var idSoal = data[0];
             var idJawaban = idJawaban;
@@ -360,30 +367,25 @@
                 id_jawaban: idJawaban,
                 id_pelamar: idPelamar
             }, function (data) {
-                if(data.status == true) {
-                    // console.log(data);
-                } else {
-                    // console.log(data);
-                }
+                soal[posisi].dijawab = true;
             });
         }
 
         function simpanJawaban(){
-            // console.log('finish');
-                        $.get("{{url('simpan-jawaban')}}", function (data) {
-                            if(data.status == true) {
-                                Swal.fire({
-                                    type: 'success',
-                                    title: 'Selesai',
-                                    text: 'Terima kasih telah mendaftar, pengumuman lolos selanjutnya akan diumumkan H+2 setelah penutupan pendaftaran (pengumuman via email, jika tidak menerima email maka tidak lolos)',
-                                    allowEscapeKey: false,
-                                    allowOutsideClick: false,
-                                    width: '50%'
-                                }).then(function(e){
-                                    window.location.replace("{{url('career')}}");
-                                });
-                            }
-                        });
+            $.get("{{url('simpan-jawaban')}}", function (data) {
+                if(data.status == true) {
+                    Swal.fire({
+                        type: 'success',
+                        title: 'Selesai',
+                        text: 'Terima kasih telah mendaftar, pengumuman lolos selanjutnya akan diumumkan H+2 setelah penutupan pendaftaran (pengumuman via email, jika tidak menerima email maka tidak lolos)',
+                        allowEscapeKey: false,
+                        allowOutsideClick: false,
+                        width: '50%'
+                    }).then(function(e){
+                        window.location.replace("{{url('career')}}");
+                    });
+                }
+            });
         }
     </script>
     </section>
