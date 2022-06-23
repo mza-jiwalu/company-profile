@@ -202,6 +202,7 @@
     <script src="{{ url('assets/user/soal/js/scripts.js') }}"></script>
     <script type="text/javascript">
         var soal = [];
+        var dijawab = [];
         $('#tags').tagsInput();
 
         // bkLib.onDomLoaded(function () {
@@ -237,9 +238,11 @@
                         jawabanHtml += '<h3 style="color: #fff;">'+soal[0].jawaban[index].pilihan+'. '+soal[0].jawaban[index].jawaban+'</h3>';
                         pilihan += '<button class="button mx-1 btn-jawaban btn'+soal[posisi].jawaban[index].id+' '+stateJawaban+'" onclick="jawab('+soal[posisi].jawaban[index].id+', '+posisi+');" data-id="'+soal[posisi].id_soal+'-'+soal[posisi].id_pelamar+'">'+soal[posisi].jawaban[index].pilihan+'</button>';
                     }
-                    $.each(soal, function(i, d){
-                        soal[i].dijawab = false;
-                    });
+                    if(!dijawab){
+                        $.each(soal, function(i, d){
+                            dijawab[i] = false;
+                        });
+                    }
                     var soalHtml = '<center>'+
                     '<h1 style="color:#fff">Pertanyaan 1</h1>'+
                     '<h3 style="color: #fff;">'+pertanyaan+'</h3>'+
@@ -255,7 +258,7 @@
                     var pertanyaanHtml = "";
 
                     $("#next").click(function() {
-                        if(soal[posisi].dijawab){
+                        if(dijawab[posisi]){
                             $("#pref").prop("disabled", false);
                             if(posisiPertanyaan === soal.length) {
                                 $("#finish").prop("disabled", false);
@@ -367,7 +370,7 @@
                 id_jawaban: idJawaban,
                 id_pelamar: idPelamar
             }, function (data) {
-                soal[posisi].dijawab = true;
+                dijawab[posisi] = true;
             });
         }
 

@@ -199,14 +199,16 @@
                                     </p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="{{url('hrd/profil')}}" class="nav-link">
-                                    <i class="nav-icon fas fa-user"></i>
-                                    <p>
-                                        Profile
-                                    </p>
-                                </a>
-                            </li>
+                            @if (session('role') !== 'direktur')
+                                <li class="nav-item">
+                                    <a href="{{url('hrd/profil')}}" class="nav-link">
+                                        <i class="nav-icon fas fa-user"></i>
+                                        <p>
+                                            Profile
+                                        </p>
+                                    </a>
+                                </li>
+                            @endif
                             <li class="nav-item">
                                 <a href="javascript:void(0)" class="nav-link">
                                     <i class="nav-icon fas fa-sun"></i>
