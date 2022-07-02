@@ -69,10 +69,8 @@ class LowonganController extends Controller
             $coverName = time() . "." . $cover->extension();
             $destination = "assets/images/lowongan";
             $cover->move($destination, $coverName);
-
-
-
             $data = array_merge($lowongan, ['cover' => $destination . "/" . $coverName]);
+
             $idLowongan = DB::table('lowongan_kerja')->insertGetId($data);
             //store skill
             // $skill = $request->skill;
@@ -157,30 +155,20 @@ class LowonganController extends Controller
         $request->session()->put('open', $lowongan['open'] ?? '');
         $request->session()->put('close', $lowongan['close'] ?? '');
         $request->validate($rules);
-
-        if ($request->file('cover')) {
-            try {
-                $cover = $request->file('cover');
+        try {
+            if ($cover = $request->file('cover')) {
                 $coverName = time() . "." . $cover->extension();
                 $destination = "assets/images/lowongan";
                 $cover->move($destination, $coverName);
+                $lowongan['cover'] = $destination . "/" . $coverName;
 
                 $coverOld = DB::table('lowongan_kerja')->where('id', $id)->value('cover');
                 File::delete($coverOld);
-
-                // ]));
-                return redirect()->route('lowongan.index')->with('success', 'Update Lowongan Successfully');
-            } catch (\Throwable $th) {
-                return redirect()->back()->with('error', $th->getMessage());
             }
-        } else {
-            try {
-
-                DB::table('lowongan_kerja')->where('id', $id)->update(array_merge($lowongan));
-                return redirect()->route('lowongan.index')->with('success', 'Update Lowongan Successfully');
-            } catch (\Throwable $th) {
-                return redirect()->back()->with('error', $th->getMessage());
-            }
+            DB::table('lowongan_kerja')->where('id', $id)->update(array_merge($lowongan));
+            return redirect()->route('lowongan.index')->with('success', 'Update Lowongan Successfully');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', $th->getMessage());
         }
     }
 
